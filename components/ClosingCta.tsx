@@ -8,7 +8,7 @@ export function ClosingCta() {
         <h2 className="mb-2 text-sm font-semibold text-foreground">{site.closing.title}</h2>
         <p className="mb-6 text-sm text-muted-foreground">{site.closing.body}</p>
         <div className="max-w-52">
-          <PrimaryButton>{site.closing.cta}</PrimaryButton>
+          <PrimaryButton href={site.downloadHref}>{site.closing.cta}</PrimaryButton>
         </div>
       </div>
     </section>

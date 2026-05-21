@@ -15,7 +15,7 @@ export function Hero() {
       <h1 className="mb-3 text-xl font-bold tracking-tight text-foreground">{site.hero.title}</h1>
       <p className="mb-6 max-w-2xl text-sm text-muted-foreground">{site.hero.description}</p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <PrimaryButton>{site.hero.primaryCta}</PrimaryButton>
+        <PrimaryButton href={site.downloadHref}>{site.hero.primaryCta}</PrimaryButton>
         <PrimaryButton href="#docs" variant="secondary">{site.hero.secondaryCta}</PrimaryButton>
       </div>
     </section>

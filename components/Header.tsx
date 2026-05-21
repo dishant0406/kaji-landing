@@ -15,7 +15,7 @@ export function Header() {
           ))}
           <a
             className="flex h-8 items-center gap-2 rounded-md bg-foreground px-3 text-sm font-medium text-background transition-colors hover:bg-foreground-muted"
-            href="#download"
+            href={site.downloadHref}
           >
             Download
             <kbd className="flex size-6 items-center justify-center rounded-md border border-background/20 bg-background/20 text-xs">
@@ -26,7 +26,7 @@ export function Header() {
         <a
           aria-label="Download Kaji"
           className="flex size-9 items-center justify-center rounded-md border border-border text-sm md:hidden"
-          href="#download"
+          href={site.downloadHref}
         >
           ↓
         </a>

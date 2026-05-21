@@ -1,10 +1,10 @@
 type PrimaryButtonProps = {
   children: React.ReactNode;
-  href?: string;
+  href: string;
   variant?: "primary" | "secondary";
 };
 
-export function PrimaryButton({ children, href = "#download", variant = "primary" }: PrimaryButtonProps) {
+export function PrimaryButton({ children, href, variant = "primary" }: PrimaryButtonProps) {
   const className =
     variant === "primary"
       ? "bg-foreground text-background hover:bg-foreground-muted"

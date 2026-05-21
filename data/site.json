@@ -1,0 +1,138 @@
+{
+  "promo": {
+    "label": "Kaji for macOS is being built in public \u2192",
+    "href": "/changelog"
+  },
+  "nav": [
+    {
+      "label": "Changelog",
+      "href": "/changelog"
+    }
+  ],
+  "hero": {
+    "updateLabel": "See what's new in Kaji \u2192",
+    "updateHref": "/changelog",
+    "title": "Run a team of terminal-native coding agents on your Mac.",
+    "description": "Kaji keeps Codex, Claude Code, OpenCode, Pi, worktrees, terminal panes, diffs, and verification inside one native macOS command center.",
+    "primaryCta": "Download Kaji",
+    "secondaryCta": "Learn how it works"
+  },
+  "builderTools": [
+    "Codex",
+    "Claude Code",
+    "OpenCode",
+    "Pi",
+    "Ghostty",
+    "Git Worktrees",
+    "SwiftUI",
+    "macOS"
+  ],
+  "notes": [
+    {
+      "title": "Agent Mission Control",
+      "body": "Keep every agent, worktree, terminal pane, changed file, and verification result in one native Mac workspace."
+    },
+    {
+      "title": "Ask palette routing",
+      "body": "Route a prompt to the right project, provider, session mode, history item, recipe, or KajiKit script from Cmd+K."
+    },
+    {
+      "title": "Verification flow",
+      "body": "Open changed files, review diffs, run project checks, and return to the terminal session without losing context."
+    },
+    {
+      "title": "Native terminal core",
+      "body": "Kaji embeds a tuned libghostty build through GhosttyKit, so terminal rendering stays native and fast."
+    },
+    {
+      "title": "Project workspaces",
+      "body": "Workspace tabs and split panes stay organized per project and worktree instead of becoming a pile of windows."
+    },
+    {
+      "title": "Provider awareness",
+      "body": "Provider hooks normalize Codex, Claude Code, OpenCode, and Pi activity into one command center."
+    }
+  ],
+  "steps": [
+    [
+      "Add your repo.",
+      "Kaji keeps projects and worktrees as first-class workspaces on your Mac."
+    ],
+    [
+      "Launch agents.",
+      "Start Codex, Claude Code, OpenCode, Pi, or a normal terminal from one palette."
+    ],
+    [
+      "Conduct.",
+      "Track status, reply, stop, resume, inspect changes, and verify before you merge."
+    ]
+  ],
+  "faqs": [
+    [
+      "Is Kaji native?",
+      "Yes. Kaji is a macOS SwiftUI app with native terminal rendering through GhosttyKit."
+    ],
+    [
+      "Which coding agents does it support?",
+      "Codex, Claude Code, OpenCode, Pi, plus regular terminal sessions."
+    ],
+    [
+      "Does it work with worktrees?",
+      "Yes. Projects, worktrees, workspace tabs, split panes, and terminal sessions are modeled separately."
+    ],
+    [
+      "Where does my code run?",
+      "Locally on your Mac. Kaji is an operations layer around your existing repos and agent CLIs."
+    ]
+  ],
+  "closing": {
+    "title": "Build with agents without losing the room.",
+    "body": "Download Kaji when you want every terminal session, agent run, worktree, and verification result in one place.",
+    "cta": "Download Kaji"
+  },
+  "footerGroups": [
+    {
+      "title": "Resources",
+      "links": [
+        {
+          "label": "Changelog",
+          "href": "/changelog"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/dishant0406/kaji"
+        }
+      ]
+    },
+    {
+      "title": "Legal",
+      "links": [
+        {
+          "label": "Privacy",
+          "href": "/privacy"
+        },
+        {
+          "label": "Terms",
+          "href": "/terms"
+        }
+      ]
+    },
+    {
+      "title": "Connect",
+      "links": [
+        {
+          "label": "X",
+          "href": "#top"
+        },
+        {
+          "label": "YouTube",
+          "href": "#top"
+        },
+        {
+          "label": "Reddit",
+          "href": "#top"
+        }
+      ]
+    }
+  ]
+}

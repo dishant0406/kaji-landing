@@ -1,0 +1,85 @@
+{
+  "entries": [
+    {
+      "version": "0.1.0",
+      "date": "May 21, 2026",
+      "title": "Native command center for coding agents",
+      "slug": "0.1.0-native-command-center-for-coding-agents",
+      "sections": [
+        {
+          "heading": "Agent Mission Control",
+          "paragraphs": [
+            "Kaji brings active and recent agent runs into one sidebar surface with provider, project, worktree, status, changed files, and verification state.",
+            "Completed runs can attach git changed-file snapshots so review starts from evidence instead of terminal archaeology."
+          ],
+          "asset": {
+            "src": "/kaji-hero-screenshot.png",
+            "alt": "Kaji app screenshot",
+            "width": 1600,
+            "height": 900
+          }
+        },
+        {
+          "heading": "Cmd+K routing",
+          "paragraphs": [
+            "The Ask palette can target a project, worktree, provider, session mode, history session, skill, task recipe, file mention, attachment, or KajiKit script from one input."
+          ]
+        },
+        {
+          "heading": "Improvements",
+          "bullets": [
+            "Support for Codex, Claude Code, OpenCode, Pi, and regular terminal sessions",
+            "Project and worktree aware workspace model",
+            "Reusable task recipes for tests, reviews, repo explanations, debugging, docs, commits, and features",
+            "Verification actions for configured project checks or Swift package defaults"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.2",
+      "date": "May 11, 2026",
+      "title": "Ghostty-powered terminal workspaces",
+      "slug": "0.0.2-ghostty-powered-terminal-workspaces",
+      "sections": [
+        {
+          "heading": "Native terminal rendering",
+          "paragraphs": [
+            "Kaji embeds a tuned libghostty build through GhosttyKit so terminal surfaces stay native, Metal-backed, and keyboard friendly."
+          ]
+        },
+        {
+          "heading": "Workspace model",
+          "bullets": [
+            "Projects contain worktrees",
+            "Worktrees contain workspace tabs",
+            "Workspace tabs own split panes",
+            "Panes host terminal tabs and agent sessions"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.1",
+      "date": "April 25, 2026",
+      "title": "First local build",
+      "slug": "0.0.1-first-local-build",
+      "sections": [
+        {
+          "heading": "macOS first",
+          "paragraphs": [
+            "The first Kaji build focused on a native SwiftUI shell, project persistence, terminal tab lifecycle, and a clean path for agent-specific services."
+          ]
+        },
+        {
+          "heading": "Fixes",
+          "bullets": [
+            "Kept app state, project storage, and terminal services separated",
+            "Made project data local to Application Support",
+            "Established the coding-agent services boundary"
+          ]
+        }
+      ]
+    }
+  ]
+}

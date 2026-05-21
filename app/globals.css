@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #141110;
+  --foreground: #eae8e6;
+  --foreground-muted: #d9d4d0;
+  --muted-foreground: #a5a09c;
+  --secondary: #211e1c;
+  --border: #ffffff1a;
+  --ring: #8c8c8c;
+  --tip: #795f5d;
+  --tip-border: #a4847f;
+  --tip-muted: #f0edea;
+  --site-content-width: 56.25rem;
+  --docs-asset-max-height: 24rem;
+  --docs-asset-frame-max-width: 46rem;
+  --docs-asset-frame-radius: 1.25rem;
+  --docs-asset-frame-padding: 0.5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-tip: var(--tip);
+  --color-tip-border: var(--tip-border);
+  --color-tip-muted: var(--tip-muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color-scheme: dark;
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.changelog-container {
+  width: 100%;
+  max-width: var(--site-content-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.docs-asset-shell {
+  width: 100%;
+}
+
+.docs-asset-frame {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  max-width: min(100%, var(--docs-asset-frame-max-width));
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--docs-asset-frame-radius);
+  background: var(--secondary);
+  padding: var(--docs-asset-frame-padding);
+}
+
+.docs-asset-media {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(48vh, var(--docs-asset-max-height));
+  object-fit: contain;
+  border-radius: calc(var(--docs-asset-frame-radius) - var(--docs-asset-frame-padding));
+}
+
+@media (min-width: 768px) {
+  .changelog-container {
+    max-width: calc(var(--site-content-width) + 11.5rem);
+    padding-right: 1.5rem;
+    padding-left: 13rem;
+  }
+
+  .docs-asset-media {
+    max-height: min(56vh, 30rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .changelog-container {
+    max-width: calc(var(--site-content-width) + 11rem);
+    padding-right: 2rem;
+    padding-left: 13rem;
+  }
+}
+
+.legal-prose {
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.legal-prose h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.legal-prose h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.legal-prose p {
+  margin-bottom: 1rem;
+}
+
+.legal-prose em,
+.legal-prose li,
+.legal-prose p {
+  color: var(--muted-foreground);
+}
+
+.legal-prose strong,
+.legal-prose h1,
+.legal-prose h2 {
+  color: var(--foreground);
+}
+
+.legal-prose ul {
+  margin: 0 0 1rem 1.5rem;
+  list-style: disc outside;
+}
+
+.legal-prose li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
 }

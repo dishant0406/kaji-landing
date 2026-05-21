@@ -1,5 +1,5 @@
 import site from "@/data/site.json";
-import { absoluteUrl, changelogEntries, seo } from "@/lib/content";
+import { absoluteUrl, changelogEntries, dateToIso, seo } from "@/lib/content";
 import { breadcrumbNode, entityId, graph, organizationNode, websiteNode } from "./base";
 
 export function homeSchema() {
@@ -20,6 +20,17 @@ export function homeSchema() {
       description: seo.description,
       releaseNotes: absoluteUrl(`/changelog/${changelogEntries[0].slug}`),
       publisher: { "@id": entityId("/", "organization") },
+      video: { "@id": entityId("/", "hero-video") },
+    },
+    {
+      "@type": "VideoObject",
+      "@id": entityId("/", "hero-video"),
+      name: "Kaji app demo",
+      description: seo.description,
+      contentUrl: absoluteUrl("/media/kaji-hero-desktop.mp4"),
+      thumbnailUrl: absoluteUrl("/media/kaji-hero-poster.webp"),
+      uploadDate: dateToIso(changelogEntries[0].date),
+      duration: "PT61S",
     },
     {
       "@type": "FAQPage",

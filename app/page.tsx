@@ -8,7 +8,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { JsonLd } from "@/components/JsonLd";
 import { NotesGrid } from "@/components/NotesGrid";
-import { ProductShot } from "@/components/ProductShot";
+import { HeroMedia } from "@/components/HeroMedia";
 import { ProcessList } from "@/components/ProcessList";
 import { PromoStrip } from "@/components/PromoStrip";
 import { ToolGrid } from "@/components/ToolGrid";
@@ -28,7 +28,7 @@ export default function Home() {
       <main className="flex flex-1 flex-col bg-background">
         <Header />
         <Hero />
-        <ProductShot />
+        <HeroMedia />
         <AnswerBlocks />
         <ToolGrid />
         <NotesGrid />

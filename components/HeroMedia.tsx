@@ -10,7 +10,7 @@ type NetworkConnection = {
 function shouldSkipVideo() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const connection = (navigator as Navigator & { connection?: NetworkConnection }).connection;
-  const slowNetwork = connection?.saveData || ["slow-2g", "2g"].includes(connection?.effectiveType ?? "");
+  const slowNetwork = connection?.saveData || ["slow-2g", "2g", "3g"].includes(connection?.effectiveType ?? "");
 
   return reducedMotion || slowNetwork;
 }
@@ -53,12 +53,12 @@ export function HeroMedia() {
   }, [enabled]);
 
   return (
-    <section className="w-full pb-16 pt-12 md:pt-16">
+    <section className="w-full px-3 pb-16 pt-12 md:px-0 md:pt-16">
       <video
         ref={ref}
         aria-label="Kaji app demo"
         autoPlay={enabled}
-        className="mx-auto block h-auto w-full max-w-7xl object-contain"
+        className="mx-auto block h-auto w-full max-w-7xl rounded-md border border-border/70 object-contain"
         loop
         muted
         playsInline

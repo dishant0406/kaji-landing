@@ -1,0 +1,1 @@
+Kaji - Run terminal-native coding agents on your Mac

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { absoluteUrl, seo } from "@/lib/content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +14,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kaji - Run terminal-native coding agents on your Mac",
-  description:
-    "Kaji is a native macOS command center for Codex, Claude Code, OpenCode, Pi, worktrees, terminal panes, diffs, and verification.",
+  metadataBase: new URL(seo.siteUrl),
+  title: {
+    default: seo.defaultTitle,
+    template: seo.titleTemplate,
+  },
+  description: seo.description,
+  keywords: seo.keywords,
+  applicationName: seo.siteName,
+  authors: [{ name: "Kaji" }],
+  creator: "Kaji",
+  publisher: "Kaji",
+  category: "Developer Tools",
+  classification: "macOS AI coding agent command center",
+  manifest: "/manifest.webmanifest",
+  alternates: { canonical: absoluteUrl("/") },
+  openGraph: {
+    title: seo.defaultTitle,
+    description: seo.description,
+    url: absoluteUrl("/"),
+    siteName: seo.siteName,
+    type: "website",
+    images: [{ url: absoluteUrl(seo.ogImage), width: 1200, height: 630, alt: seo.defaultTitle }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: seo.defaultTitle,
+    description: seo.description,
+    images: [absoluteUrl(seo.ogImage)],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

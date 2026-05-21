@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/JsonLd";
 import { LegalPageShell } from "@/components/LegalPageShell";
-import legal from "@/data/legal.json";
+import { legalPages } from "@/lib/content";
+import { pageMetadata } from "@/lib/metadata";
+import { legalPageSchema } from "@/lib/schema/legal";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Kaji Customer Terms and Conditions",
-  description: legal.terms.intro,
-};
+  description: legalPages.terms.intro,
+  path: "/terms",
+  imagePath: "/terms/opengraph-image",
+});
 
 export default function TermsPage() {
-  return <LegalPageShell page={legal.terms} />;
+  return (
+    <>
+      <JsonLd data={legalPageSchema("terms")} />
+      <LegalPageShell page={legalPages.terms} />
+    </>
+  );
 }

@@ -85,6 +85,20 @@
       "Locally on your Mac. Kaji is an operations layer around your existing repos and agent CLIs."
     ]
   ],
+  "answerBlocks": [
+    {
+      "question": "What is Kaji?",
+      "answer": "Kaji is a native macOS command center for developers running AI coding agents. It organizes Codex, Claude Code, OpenCode, Pi, terminal panes, git worktrees, diffs, and verification in one local workspace."
+    },
+    {
+      "question": "Who is Kaji for?",
+      "answer": "Kaji is for Mac developers who use multiple terminal-native coding agents and want one place to launch sessions, watch progress, review changed files, and verify work before merging."
+    },
+    {
+      "question": "How does Kaji work with coding agents?",
+      "answer": "Kaji keeps provider-specific logic behind agent services while the main app manages projects, worktrees, tabs, panes, status, history, and review flows. That keeps the workflow scalable as more agents are added."
+    }
+  ],
   "closing": {
     "title": "Build with agents without losing the room.",
     "body": "Download Kaji when you want every terminal session, agent run, worktree, and verification result in one place.",
@@ -122,17 +136,34 @@
       "links": [
         {
           "label": "X",
-          "href": "#top"
+          "href": "https://x.com/dishant_ic"
         },
         {
-          "label": "YouTube",
-          "href": "#top"
-        },
-        {
-          "label": "Reddit",
-          "href": "#top"
+          "label": "LinkedIn",
+          "href": "https://www.linkedin.com/in/dishant0406"
         }
       ]
     }
-  ]
+  ],
+  "seo": {
+    "siteName": "Kaji",
+    "siteUrl": "https://kaji.sh",
+    "defaultTitle": "Kaji - Run terminal-native coding agents on your Mac",
+    "titleTemplate": "%s | Kaji",
+    "description": "Kaji is a native macOS command center for Codex, Claude Code, OpenCode, Pi, worktrees, terminal panes, diffs, and verification.",
+    "keywords": [
+      "Kaji",
+      "macOS coding agent",
+      "AI coding agent command center",
+      "terminal-native coding agents",
+      "Codex macOS",
+      "Claude Code macOS",
+      "OpenCode macOS",
+      "git worktree coding agents",
+      "native macOS terminal multiplexer",
+      "AI coding workflow for Mac",
+      "coding agents"
+    ],
+    "ogImage": "/og-main.png"
+  }
 }

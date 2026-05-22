@@ -1,6 +1,71 @@
 {
   "entries": [
     {
+      "version": "0.1.6",
+      "date": "May 22, 2026",
+      "title": "Release resource loading and browser profile recovery",
+      "slug": "0.1.6-release-resource-loading-and-browser-profile-recovery",
+      "sections": [
+        {
+          "heading": "Packaged resources load from the right place",
+          "paragraphs": [
+            "This bug-fix release hardens how Kaji finds its bundled resources in packaged builds. Browser MCP scripts, CodeGraph adapters, Parent Agent runtime files, language packs, icons, and other app assets now resolve through a shared app resource bundle lookup instead of assuming SwiftPM's development-time layout.",
+            "Translation: the app is much less likely to work perfectly in debug and then go looking for its socks in production."
+          ],
+          "bullets": [
+            "Added a shared Bundle.appResources lookup across app bundle, resource, executable, and loaded-bundle candidates",
+            "Moved Browser MCP, CodeGraph, Parent Agent runtime, shortcut, and language-pack resource loading onto the packaged app resource bundle",
+            "Updated the release workflow to smoke-launch the app during release builds"
+          ]
+        },
+        {
+          "heading": "Browser profiles recover after a bad startup",
+          "paragraphs": [
+            "Kaji now detects if the embedded Chromium profile was interrupted during startup, quarantines the old profile when needed, clears stale singleton lock files, and creates a clean profile for the next launch. If the browser profile gets haunted, Kaji moves it aside and keeps going."
+          ],
+          "bullets": [
+            "Added a CEF startup marker so failed browser startups can be detected on the next launch",
+            "Removes stale SingletonCookie, SingletonLock, and SingletonSocket files before startup",
+            "Quarantines failed CEFProfile directories with timestamped backups",
+            "Marks browser startup complete after the embedded browser remains stable",
+            "Added tests for stale lock cleanup, startup-marker cleanup, and failed-profile quarantine behavior"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.5",
+      "date": "May 22, 2026",
+      "title": "Release signing and bundle layout fixes",
+      "slug": "0.1.5-release-signing-and-bundle-layout-fixes",
+      "sections": [
+        {
+          "heading": "CEF and Sparkle signing hardened",
+          "paragraphs": [
+            "This bug-fix release fixes packaged-browser signing for release builds. The release script now signs Sparkle, the Chromium Embedded Framework libraries, CEF helper apps, KajiHookClient, and the app bundle in a more deliberate inside-out order.",
+            "Basically: fewer mysterious release-only browser failures, more boring builds. Boring is good here."
+          ],
+          "bullets": [
+            "Added reusable release signing helpers with a default ad-hoc signing identity",
+            "Signed Sparkle, CEF framework libraries, CEF helper apps, KajiHookClient, and the final app bundle",
+            "Extended bundle validation to check CEF framework, helper app, and full app signatures",
+            "Added a CEF log file under the browser profile for easier release debugging"
+          ]
+        },
+        {
+          "heading": "Resource bundle layout cleaned up",
+          "paragraphs": [
+            "Kaji_Kaji.bundle now lives only where the packaged app expects it: inside Contents/Resources. The validator also fails if the resource bundle accidentally lands at the app bundle root again."
+          ],
+          "bullets": [
+            "Removed the duplicate root-level resource bundle copy from release packaging",
+            "Added validation for correct Kaji_Kaji.bundle placement",
+            "Bumped Kaji to 0.1.5 build 535"
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.1.4",
       "date": "May 21, 2026",
       "title": "Browser startup and Parent Agent streaming hotfix",

@@ -1,82 +1,580 @@
 {
   "entries": [
     {
-      "version": "0.1.0",
+      "version": "0.1.4",
       "date": "May 21, 2026",
-      "title": "Native command center for coding agents",
-      "slug": "0.1.0-native-command-center-for-coding-agents",
+      "title": "Browser startup and Parent Agent streaming hotfix",
+      "slug": "0.1.4-browser-startup-and-parent-agent-streaming-hotfix",
       "sections": [
         {
-          "heading": "Agent Mission Control",
+          "heading": "Embedded browser startup fix",
           "paragraphs": [
-            "Kaji brings active and recent agent runs into one sidebar surface with provider, project, worktree, status, changed files, and verification state.",
-            "Completed runs can attach git changed-file snapshots so review starts from evidence instead of terminal archaeology."
-          ],
-          "asset": {
-            "src": "/kaji-hero-screenshot.png",
-            "alt": "Kaji app screenshot",
-            "width": 3824,
-            "height": 2324
-          }
-        },
-        {
-          "heading": "Cmd+K routing",
-          "paragraphs": [
-            "The Ask palette can target a project, worktree, provider, session mode, history session, skill, task recipe, file mention, attachment, or KajiKit script from one input."
+            "This hotfix repairs an embedded Chromium startup regression around the CEF message pump and browser view lifecycle.",
+            "Immediate CEF work now goes through a main-queue dispatch source, page and popup callbacks are safely marshalled to the main thread, and detached browser surfaces are marked inactive instead of being torn out from under SwiftUI."
           ]
         },
         {
-          "heading": "Improvements",
+          "heading": "Parent Agent streaming feels alive again",
+          "paragraphs": [
+            "Live Parent Agent output now renders through a throttled streaming text view, auto-scrolls as long answers grow, and debounces persistence so every tiny text delta does not become a disk-write fire drill."
+          ],
           "bullets": [
-            "Support for Codex, Claude Code, OpenCode, Pi, and regular terminal sessions",
-            "Project and worktree aware workspace model",
-            "Reusable task recipes for tests, reviews, repo explanations, debugging, docs, commits, and features",
-            "Verification actions for configured project checks or Swift package defaults"
+            "Added ParentAgentStreamingText for smoother live assistant output",
+            "Added live-tail auto-scroll while an answer is still incomplete",
+            "Debounced streaming saves and added an explicit flush path",
+            "Cached Node runtime lookup for faster Parent Agent startup checks",
+            "Added launch and heartbeat timing logs for future diagnostics"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.3",
+      "date": "May 21, 2026",
+      "title": "Native editor, diagnostics, and serious diff review",
+      "slug": "0.1.3-native-editor-diagnostics-and-serious-diff-review",
+      "sections": [
+        {
+          "heading": "The editor grew teeth",
+          "paragraphs": [
+            "Kaji 0.1.3 is the release where the native editor stops being a side quest and becomes a real part of the AI coding workflow.",
+            "Language packs now drive syntax, comments, brackets, folding metadata, snippets, formatter metadata, Tree-sitter metadata, TextMate metadata, and LSP metadata."
+          ],
+          "bullets": [
+            "Bundled language support for C, C++, JavaScript, TypeScript, JSON, JSONC, Python, Shell, SQL, and Swift",
+            "Installable Ruby and Zig language packs with integrity validation",
+            "Go to Symbol, Go to Line, editor outline, status bar, cursor state, and viewport state",
+            "Inline AI edit flow with provider/model choice, diff preview, proposal editing, and apply"
+          ]
+        },
+        {
+          "heading": "Diagnostics, search, and review mode",
+          "paragraphs": [
+            "This release adds LSP diagnostic plumbing, a Problems panel, project-wide search/replace, and a much more capable VCS review surface.",
+            "The diff viewer can now review all changes, show file headers, mark files viewed, comment on files/hunks, stage or unstage from the header, expand hunk context, and lazy-load large diff bodies so Kaji does not try to swallow the whole repo at once."
+          ],
+          "bullets": [
+            "Added global search and replace with confirmation preview",
+            "Added Problems grouped by file with error and warning counts",
+            "Added all-changes diff review, file comments, and hunk context controls",
+            "Improved drag reordering and fixed long-running memory retention across editor, browser, graph, terminal, LSP, and Parent Agent surfaces",
+            "Replaced the vendored Pi mono repo with KajiParentAgentRuntime using pinned Pi npm packages"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.2",
+      "date": "May 11, 2026",
+      "title": "History resume and browser-session stability",
+      "slug": "0.1.2-history-resume-and-browser-session-stability",
+      "sections": [
+        {
+          "heading": "History resume got less haunted",
+          "paragraphs": [
+            "Kaji now handles provider-history resumes more carefully, especially when routing from Ask into existing terminal sessions.",
+            "The resume path was moved off the blocking path, history annotations were resolved more reliably, and the default terminal resume flow was tightened so old sessions do not drag the UI into a swamp."
+          ],
+          "bullets": [
+            "Resolved history annotations before dispatch",
+            "Launched history resumes asynchronously",
+            "Skipped expensive session scans for history resumes",
+            "Prevented a resume seed update loop",
+            "Separated Codex resume prompt behavior from other providers"
+          ]
+        },
+        {
+          "heading": "Browser persistence polish",
+          "paragraphs": [
+            "Browser state now survives project switches more reliably, browser tabs compress better, and temporary Playwright MCP artifacts are ignored so the repo does not collect crumbs from browser automation."
+          ],
+          "bullets": [
+            "Preserved browser sessions across projects",
+            "Made browser tabs responsive",
+            "Removed temporary Ask hang diagnostics after the issue was narrowed"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.1",
+      "date": "May 11, 2026",
+      "title": "Codex resume prompt separation",
+      "slug": "0.1.1-codex-resume-prompt-separation",
+      "sections": [
+        {
+          "heading": "Provider-specific resume behavior",
+          "paragraphs": [
+            "This release separates Codex resume prompts so Codex history sessions can be resumed without forcing the same prompt behavior onto every other provider.",
+            "Small release, important fix. The kind that saves you from asking why one provider is acting like another provider wearing a fake mustache."
+          ],
+          "bullets": [
+            "Separated Codex resume prompts from shared resume handling",
+            "Bumped and published the Kaji 0.1.1 release package"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.22",
+      "date": "May 11, 2026",
+      "title": "Kaji settings migration and native browser devtools",
+      "slug": "0.0.22-kaji-settings-migration-and-native-browser-devtools",
+      "sections": [
+        {
+          "heading": "Settings caught up with the new name",
+          "paragraphs": [
+            "The app had already become Kaji, and this release moves the remaining Droid settings paths and labels into the Kaji world.",
+            "Bookmarks also got a small usability fix so pressing Enter resumes saved sessions instead of making you poke around like it is 1998."
+          ],
+          "bullets": [
+            "Migrated Droid settings to Kaji naming",
+            "Fixed saved bookmark resume on Enter",
+            "Added browser devtools support",
+            "Switched browser devtools to the native path"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "date": "May 11, 2026",
+      "title": "Droid becomes Kaji",
+      "slug": "0.1.0-droid-becomes-kaji",
+      "sections": [
+        {
+          "heading": "The rebrand release",
+          "paragraphs": [
+            "Droid becomes Kaji in this release. The name changed because the product had moved beyond a terminal app and into a native control surface for steering AI coding work.",
+            "Kaji also gains the browser-control foundation needed for agents to use an embedded browser without launching a random external Chrome window."
+          ],
+          "bullets": [
+            "Renamed the product from Droid to Kaji across app surfaces and release packaging",
+            "Added an MCP server control panel",
+            "Added Playwright-backed browser MCP support over Kaji browser control",
+            "Improved pointer affordances and hit areas",
+            "Added a dedicated MCP footer icon"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.20",
+      "date": "May 10, 2026",
+      "title": "Embedded Chromium browser and browser MCP groundwork",
+      "slug": "0.0.20-embedded-chromium-browser-and-browser-mcp-groundwork",
+      "sections": [
+        {
+          "heading": "Browser inside the command center",
+          "paragraphs": [
+            "Droid gets an embedded Chromium browser side panel, plus the first serious round of browser-agent integration work.",
+            "This is the release where the browser stops being \u201copen a separate thing somewhere else\u201d and starts becoming a workspace surface agents can eventually use."
+          ],
+          "bullets": [
+            "Added embedded Chromium browser side panel",
+            "Added browser control features with MCP integration",
+            "Updated release packaging for bundled CEF",
+            "Avoided duplicate release app rpaths",
+            "Improved browser and agent integration fixes"
+          ]
+        },
+        {
+          "heading": "Agent and workspace polish",
+          "bullets": [
+            "Added agent session bookmarks",
+            "Fixed agent history titles",
+            "Showed Droid resource usage",
+            "Fixed macOS Tahoe chrome controls",
+            "Enhanced notification handling with new policies and coalescing logic"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.19",
+      "date": "May 7, 2026",
+      "title": "CodeGraph output safety and launcher state",
+      "slug": "0.0.19-codegraph-output-safety-and-launcher-state",
+      "sections": [
+        {
+          "heading": "Keep graph artifacts out of the repo",
+          "paragraphs": [
+            "DroidCodeGraph now avoids dumping Graphify output into the target project repository. Graphs belong in Droid-managed extension storage, not as surprise confetti in your working tree."
+          ],
+          "bullets": [
+            "Prevented DroidCodeGraph repo-root output pollution",
+            "Added CLI launcher installation state management",
+            "Adjusted window traffic light layout behavior",
+            "Merged the latest mainline fixes into the release path"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.18",
+      "date": "May 7, 2026",
+      "title": "DroidCodeGraph arrives",
+      "slug": "0.0.18-droidcodegraph-arrives",
+      "sections": [
+        {
+          "heading": "Native code graph workflow",
+          "paragraphs": [
+            "This release introduces the DroidCodeGraph extension, bringing Graphify-backed project graphs into the native app workflow.",
+            "The goal is to give agents and humans a better map of the codebase instead of sending everyone into the forest with a flashlight and good intentions."
+          ],
+          "bullets": [
+            "Added DroidCodeGraph extension support",
+            "Implemented CodeGraph agent functionality",
+            "Improved footer controls for graph runs and graph surfaces",
+            "Packaged the first release of the graph workflow"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.17",
+      "date": "May 6, 2026",
+      "title": "Packaged resource bundle fix",
+      "slug": "0.0.17-packaged-resource-bundle-fix",
+      "sections": [
+        {
+          "heading": "Release resources in the right place",
+          "paragraphs": [
+            "This hotfix fixes the packaged resource bundle location so release builds can find the resources they need after installation.",
+            "Tiny diff, big \u201cwhy is the app acting different outside Xcode?\u201d energy."
+          ],
+          "bullets": [
+            "Fixed packaged resource bundle lookup/location",
+            "Published Droid 0.0.17 with the packaging fix"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.16",
+      "date": "May 6, 2026",
+      "title": "GhosttyKit cache provenance and overwrite fixes",
+      "slug": "0.0.16-ghosttykit-cache-provenance-and-overwrite-fixes",
+      "sections": [
+        {
+          "heading": "Release cache hardening",
+          "paragraphs": [
+            "The GhosttyKit cache path gets more defensive in this release, including provenance verification and overwrite behavior during release builds.",
+            "In other words: fewer mystery terminal engines, more \u201cyes, that is the artifact we meant to ship.\u201d"
+          ],
+          "bullets": [
+            "Verified GhosttyKit cache provenance",
+            "Overwrote GhosttyKit cache during release when needed",
+            "Published the corrected 0.0.16 package"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.15",
+      "date": "May 6, 2026",
+      "title": "Droid Ghostty fork by default",
+      "slug": "0.0.15-droid-ghostty-fork-by-default",
+      "sections": [
+        {
+          "heading": "Terminal engine alignment",
+          "paragraphs": [
+            "The release pipeline now uses the Droid Ghostty fork by default, keeping terminal behavior aligned with the fork Kaji/Droid is built and tuned against."
+          ],
+          "bullets": [
+            "Switched release setup to the Droid Ghostty fork by default",
+            "Published Droid 0.0.15 with the updated Ghostty source path"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.14",
+      "date": "May 6, 2026",
+      "title": "Release workflow cleanup for cached GhosttyKit",
+      "slug": "0.0.14-release-workflow-cleanup-for-cached-ghosttykit",
+      "sections": [
+        {
+          "heading": "Less release-workflow wrestling",
+          "paragraphs": [
+            "This release cleans up the path around cached GhosttyKit artifacts and makes the Homebrew cask update step safer when tap credentials are unavailable.",
+            "A few release attempts were needed here. The final result is less dramatic, which is exactly what you want from release automation."
+          ],
+          "bullets": [
+            "Used cached GhosttyKit in the release workflow",
+            "Skipped cask updates safely when the tap token is missing",
+            "Published the corrected Droid 0.0.14 package"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.13",
+      "date": "May 6, 2026",
+      "title": "Agent instructions, footer terminal, and subagent output capture",
+      "slug": "0.0.13-agent-instructions-footer-terminal-and-subagent-output-capture",
+      "sections": [
+        {
+          "heading": "Agent workflow upgrades",
+          "paragraphs": [
+            "Droid gets a native Agent Instructions viewer, a configurable footer terminal, and fixes for parent-agent subagent output capture.",
+            "This is the release where the app starts showing more of the invisible context agents are actually using."
+          ],
+          "bullets": [
+            "Added native agent instruction viewing for project/global agent files",
+            "Added configurable footer terminal support",
+            "Fixed subagent terminal output capture",
+            "Simplified the unsigned release workflow",
+            "Fixed release workflow Xcode setup"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.12",
+      "date": "May 5, 2026",
+      "title": "Generated model catalog refresh",
+      "slug": "0.0.12-generated-model-catalog-refresh",
+      "sections": [
+        {
+          "heading": "Provider catalog refresh",
+          "paragraphs": [
+            "This release refreshes the generated model catalog and ships Droid 0.0.12 with the updated provider metadata.",
+            "Not flashy, but model lists going stale is how settings pages start lying. This keeps them honest."
+          ],
+          "bullets": [
+            "Refreshed generated model catalog assets",
+            "Updated release metadata for Droid 0.0.12"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.11",
+      "date": "May 5, 2026",
+      "title": "Shortcut catalog and sidebar cleanup",
+      "slug": "0.0.11-shortcut-catalog-and-sidebar-cleanup",
+      "sections": [
+        {
+          "heading": "Shortcuts become data-driven",
+          "paragraphs": [
+            "Droid gains a shortcut reference catalog backed by JSON configuration and supporting UI components.",
+            "That makes keyboard behavior easier to document, display, and evolve without turning every shortcut tweak into a treasure hunt."
+          ],
+          "bullets": [
+            "Implemented shortcut reference catalog with JSON configuration",
+            "Refined sidebar menus and sidebar UI components",
+            "Updated generated model catalog",
+            "Cleaned README, license, docs, and app visuals",
+            "Refactored code structure for readability and maintainability"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.10",
+      "date": "May 5, 2026",
+      "title": "Pi permission and completion notifications split",
+      "slug": "0.0.10-pi-permission-and-completion-notifications-split",
+      "sections": [
+        {
+          "heading": "Cleaner Pi signals",
+          "paragraphs": [
+            "Pi permission requests and completion events are now separated so Droid can treat \u201cplease approve this\u201d differently from \u201cthe task is done.\u201d",
+            "Agents need nuance too. Otherwise every notification is just a tiny panic button."
+          ],
+          "bullets": [
+            "Separated Pi permission notifications from completion notifications",
+            "Published Droid 0.0.10 with the notification fix"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.9",
+      "date": "May 5, 2026",
+      "title": "Global Droid home and Pi hook fixes",
+      "slug": "0.0.9-global-droid-home-and-pi-hook-fixes",
+      "sections": [
+        {
+          "heading": "Parent Agent moves home",
+          "paragraphs": [
+            "Droid home becomes a global surface instead of behaving like just another project tab.",
+            "Pi hook notifications and stop events were also fixed so the parent-agent loop can observe and control child work more reliably."
+          ],
+          "bullets": [
+            "Made Droid home global",
+            "Fixed Pi hook notifications",
+            "Fixed Pi stop events",
+            "Published Droid 0.0.9"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.8",
+      "date": "May 5, 2026",
+      "title": "Parent Agent tab and orchestration upgrade",
+      "slug": "0.0.8-parent-agent-tab-and-orchestration-upgrade",
+      "sections": [
+        {
+          "heading": "Parent Agent becomes a real surface",
+          "paragraphs": [
+            "This release adds Parent Agent tab functionality and the related native UI needed to make parent-agent work visible inside Droid.",
+            "The orchestration layer also gets refreshed generated assets and improved task handling. The parent agent is no longer just lurking in the basement."
+          ],
+          "bullets": [
+            "Added Parent Agent tab UI components",
+            "Updated parent-agent orchestration",
+            "Improved the Parent Agent experience",
+            "Updated generated parent-agent assets",
+            "Bumped release build metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.7",
+      "date": "May 4, 2026",
+      "title": "Parent Agent runtime lookup fix",
+      "slug": "0.0.7-parent-agent-runtime-lookup-fix",
+      "sections": [
+        {
+          "heading": "Find the runtime, launch the runtime",
+          "paragraphs": [
+            "This hotfix tightens Parent Agent runtime lookup and refreshes the bundled runtime assets.",
+            "Very small release. Very important if the thing you are trying to launch is the thing that launches other things."
+          ],
+          "bullets": [
+            "Fixed Parent Agent runtime lookup",
+            "Updated Parent Agent runtime assets",
+            "Published Droid 0.0.7"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.6",
+      "date": "May 4, 2026",
+      "title": "Release checks and runtime refresh",
+      "slug": "0.0.6-release-checks-and-runtime-refresh",
+      "sections": [
+        {
+          "heading": "Packaging guardrails",
+          "paragraphs": [
+            "Release checks were updated and the Parent Agent runtime was refreshed again so the shipped app better matches the local development path."
+          ],
+          "bullets": [
+            "Updated release checks",
+            "Updated Parent Agent runtime assets",
+            "Published Droid 0.0.6"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.5",
+      "date": "May 4, 2026",
+      "title": "Parent Agent shell, Pi provider, and coding-agent registry",
+      "slug": "0.0.5-parent-agent-shell-pi-provider-and-coding-agent-registry",
+      "sections": [
+        {
+          "heading": "Parent Agent foundation",
+          "paragraphs": [
+            "Droid gets its first serious Parent Agent foundation: a native shell, supervision loop, vendored runtime, build script, and orchestration path.",
+            "This is also where Pi joins the provider lineup, which is a pretty big deal for a 0.0.x release wearing a fake mustache."
+          ],
+          "bullets": [
+            "Added Parent Agent shell and supervision",
+            "Vendored and bundled the Parent Agent runtime",
+            "Added a build script for the Parent Agent runtime",
+            "Refactored the coding-agent registry",
+            "Added Pi as a coding agent provider",
+            "Added DroidKit scripts and improved command-list rendering",
+            "Improved Parent Agent attachment handling"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.4",
+      "date": "May 2, 2026",
+      "title": "Ask moves to Command K",
+      "slug": "0.0.4-ask-moves-to-command-k",
+      "sections": [
+        {
+          "heading": "The shortcut that stuck",
+          "paragraphs": [
+            "Ask is remapped to Command K, making the main agent prompt feel like the central command surface it was becoming.",
+            "Small change, big muscle-memory consequences."
+          ],
+          "bullets": [
+            "Remapped Ask to Cmd+K",
+            "Published Droid 0.0.4"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.3",
+      "date": "May 2, 2026",
+      "title": "Distribution script and installed-provider gates",
+      "slug": "0.0.3-distribution-script-and-installed-provider-gates",
+      "sections": [
+        {
+          "heading": "Safer distribution and provider setup",
+          "paragraphs": [
+            "This release adds the distribution release script and gates provider integrations on installed CLIs.",
+            "Droid now does a better job of not pretending a provider is ready when the CLI is nowhere to be found."
+          ],
+          "bullets": [
+            "Added distribution release script",
+            "Gated provider integrations on installed CLIs",
+            "Published Droid 0.0.3"
           ]
         }
       ]
     },
     {
       "version": "0.0.2",
-      "date": "May 11, 2026",
-      "title": "Ghostty-powered terminal workspaces",
-      "slug": "0.0.2-ghostty-powered-terminal-workspaces",
+      "date": "May 2, 2026",
+      "title": "Homebrew cask and default theme polish",
+      "slug": "0.0.2-homebrew-cask-and-default-theme-polish",
       "sections": [
         {
-          "heading": "Native terminal rendering",
+          "heading": "Install path and first coat of paint",
           "paragraphs": [
-            "Kaji embeds a tuned libghostty build through GhosttyKit so terminal surfaces stay native, Metal-backed, and keyboard friendly."
-          ]
-        },
-        {
-          "heading": "Workspace model",
+            "The Homebrew install path is corrected to use the droidkit cask, and the default theme colors get an early polish pass.",
+            "A release can be tiny and still make the app feel less like it escaped from a debug folder."
+          ],
           "bullets": [
-            "Projects contain worktrees",
-            "Worktrees contain workspace tabs",
-            "Workspace tabs own split panes",
-            "Panes host terminal tabs and agent sessions"
+            "Switched installation docs/scripts to the droidkit Homebrew cask",
+            "Updated default theme colors",
+            "Published Droid 0.0.2"
           ]
         }
       ]
     },
     {
       "version": "0.0.1",
-      "date": "April 25, 2026",
-      "title": "First local build",
-      "slug": "0.0.1-first-local-build",
+      "date": "May 2, 2026",
+      "title": "First Droid release after the fork",
+      "slug": "0.0.1-first-droid-release-after-the-fork",
       "sections": [
         {
-          "heading": "macOS first",
+          "heading": "From Muxy fork to Droid preview",
           "paragraphs": [
-            "The first Kaji build focused on a native SwiftUI shell, project persistence, terminal tab lifecycle, and a clean path for agent-specific services."
-          ]
-        },
-        {
-          "heading": "Fixes",
+            "This is the first public Droid release after the Muxy fork point. It establishes the app identity, packaging path, terminal workspace direction, and first AI-agent workflow surfaces.",
+            "A lot landed here because the app was becoming something very different: a native macOS workspace for coding agents, terminals, notifications, and review evidence."
+          ],
           "bullets": [
-            "Kept app state, project storage, and terminal services separated",
-            "Made project data local to Application Support",
-            "Established the coding-agent services boundary"
+            "Added Droid brand assets, icon polish, and release setup",
+            "Bundled Ghostty runtime resources and tuned terminal input, colors, typography, and responsiveness",
+            "Added Ask command palette, inline routing annotations, history and skill routing, task recipes, and attachments",
+            "Added Agent Mission Control transcripts, evidence, actions, and the keyboard Agent Command Center",
+            "Replaced provider notification scripts with a native helper and improved Codex/OpenCode notification reliability",
+            "Added notification routing, transparency controls, wake recovery, and resource monitoring",
+            "Documented Homebrew install and reset release versioning to 0.0.1"
           ]
         }
       ]

@@ -1,6 +1,95 @@
 {
   "entries": [
     {
+      "version": "0.1.8",
+      "date": "May 25, 2026",
+      "title": "Git command center, file previews, and richer markdown",
+      "slug": "0.1.8-git-command-center-file-previews-and-richer-markdown",
+      "sections": [
+        {
+          "heading": "Git commands move into Cmd+K",
+          "paragraphs": [
+            "Kaji 0.1.8 turns the Ask palette into a more useful command surface for everyday Git work.",
+            "You can now run, preview, and confirm Git commands from inside Kaji instead of opening a throwaway terminal for every small repo operation."
+          ],
+          "bullets": [
+            "Added :git, :branch, :switch, and :checkout palette flows",
+            "Added common Git entries for status, fetch, pull, push, branch list, log, and diff stats",
+            "Added structured previews for status, branch list, commit log, stash list, diff stat, show, tag, and blame output",
+            "Added confirmations for destructive commands like hard reset, clean, force push, and branch delete",
+            "Blocked or redirected interactive Git flows that need a real terminal"
+          ]
+        },
+        {
+          "heading": "Guided commits and generated messages",
+          "paragraphs": [
+            "Commit creation now has a native Kaji flow.",
+            "Kaji can build an inventory from selected files, draft a commit message, optionally refine it through Kaji Parent Agent, and run the final commit through the native Git service."
+          ],
+          "bullets": [
+            "Added a native :commit flow in the Ask palette",
+            "Added selected-file commit inventory and commit diff context",
+            "Added generated commit-message drafting and optional Parent Agent refinement",
+            "Added commit-message detail settings for fast, medium, or detailed output",
+            "Added custom commit-message instructions in Settings"
+          ]
+        },
+        {
+          "heading": "Native previews for more file types",
+          "paragraphs": [
+            "Kaji can now open non-code files in native preview tabs instead of trying to treat every file like text.",
+            "That means images, PDFs, media, web/SVG files, documents, archives, 3D models, and QuickLook-backed files can stay inside the workspace while source files still open in the editor."
+          ],
+          "bullets": [
+            "Added native preview tabs for images, PDFs, audio/video, web/SVG, documents, archives, 3D models, and QuickLook fallback files",
+            "Added preview tab state and workspace persistence support",
+            "Added reveal-in-Finder and open-externally actions from previews",
+            "Kept text and source files routed to the editor"
+          ]
+        },
+        {
+          "heading": "Markdown preview grows up",
+          "paragraphs": [
+            "Markdown preview moved to a richer bundled web-rendering pipeline while staying inside Kaji-owned resources.",
+            "The preview can now handle more realistic docs, reuse prewarmed surfaces, open local links through Kaji, and send external links to the system browser."
+          ],
+          "bullets": [
+            "Added bundled markdown-it, DOMPurify, KaTeX, Mermaid, and KaTeX fonts",
+            "Added prewarmed Markdown preview surfaces over a shared WKWebView process pool",
+            "Added local document-root media serving through scoped Kaji URL schemes",
+            "Added local link routing through Kaji file opening",
+            "Added external link handling through NSWorkspace",
+            "Added editor and preview scroll synchronization support"
+          ]
+        },
+        {
+          "heading": "Terminal settings get serious",
+          "paragraphs": [
+            "Kaji now exposes a dedicated Terminal settings pane for Ghostty behavior.",
+            "Instead of hiding terminal behavior in config files, Kaji can manage shell integration, scrollback, clipboard policy, quick terminal sizing, link and file actions, and image memory from Settings."
+          ],
+          "bullets": [
+            "Added shell integration mode controls for detect, disabled, Bash, Fish, Zsh, Nushell, and Elvish",
+            "Added prompt cursor, SSH compatibility, sudo terminfo wrapper, option-click cursor movement, option key mode, and mouse reporting settings",
+            "Added battery optimized mode, scroll speed profiles, scrollback profiles, custom scrollback bytes, and telemetry settings",
+            "Added clipboard read/write policy, bracketed paste protection, link previews, and file path actions",
+            "Added quick terminal position, size, autohide, and image protocol memory settings",
+            "Updated setup and docs toward upstream ghostty-org/ghostty"
+          ]
+        },
+        {
+          "heading": "Release hardening",
+          "paragraphs": [
+            "A couple of release-pipeline fixes landed with this release too, mostly to make the boring parts stay boring."
+          ],
+          "bullets": [
+            "Fixed GhosttyKit release cache validation",
+            "Added PAT fallback for release workflow authentication"
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.1.6",
       "date": "May 22, 2026",
       "title": "Release resource loading and browser profile recovery",

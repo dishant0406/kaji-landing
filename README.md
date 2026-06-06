@@ -26,6 +26,19 @@ npm run lint
 npm run build
 ```
 
+## Hashnode Blog
+
+Hashnode moved GraphQL API access behind publication Pro plans in May 2026. Blog pages use the paid API endpoint by default:
+
+```bash
+HASHNODE_GQL_ENDPOINT=https://gql-beta.hashnode.com
+HASHNODE_PUBLICATION_HOST=your-publication.hashnode.dev
+HASHNODE_TOKEN=optional-personal-access-token
+HASHNODE_AUTHORIZATION=optional-exact-authorization-header
+```
+
+`HASHNODE_TOKEN` is sent as a bearer token. Use `HASHNODE_AUTHORIZATION` only if Hashnode support gives you an exact header value.
+
 ## Content
 
 Main editable content lives in:

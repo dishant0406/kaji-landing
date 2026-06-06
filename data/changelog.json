@@ -1,6 +1,315 @@
 {
   "entries": [
     {
+      "version": "0.2.5",
+      "date": "June 7, 2026",
+      "title": "Expanded agent runtime tools, native host bridge, and native addon packaging",
+      "slug": "0.2.5-expanded-agent-runtime-tools-and-native-host-bridge",
+      "sections": [
+        {
+          "heading": "Agent runtime tool surface expanded with domain-specific host tools",
+          "paragraphs": [
+            "Kaji's agent runtime tool surface was restructured from a monolithic host tool registry into a modular per-domain tool architecture. Each domain gets its own tool module with dedicated type definitions, making the bridge easier to extend and maintain."
+          ],
+          "bullets": [
+            "Added KajiAgentBasicHostTools and definitions for core host operations",
+            "Added KajiAgentCodeGraphHostTools and definitions for CodeGraph query, status, and visualization",
+            "Added KajiAgentCodeGraphStatusTool for dedicated CodeGraph status checking",
+            "Added KajiAgentFFFHostTools and definitions for FFF-based file and text search tools",
+            "Added KajiAgentWorkspaceContext and KajiAgentWorkspacePathResolver for workspace-aware tool execution",
+            "Added KajiAgentHostToolCatalog for unified registration and discovery across all host tool domains",
+            "Added KajiAgentSubagentInlineLayout and KajiAgentTodoIndicator for inline subagent rendering and todo display",
+            "Added KajiAgentTranscriptToolUpdater for updating tool call transcript entries",
+            "Updated coding agent shim script paths for the new tool architecture"
+          ]
+        },
+        {
+          "heading": "Native addon staged and validated in release builds",
+          "paragraphs": [
+            "The built Kaji Agent Runtime bundle (kaji-agent-runtime.mjs) is now staged as a native addon inside the Xcode project before the Swift build, and validated for presence and integrity. The release workflow includes it in the release artifact."
+          ],
+          "bullets": [
+            "Added stage-kaji-agent-native-addon.sh to copy and validate the bundled runtime",
+            "Updated build-release.sh to stage the native addon before the Swift build",
+            "Updated the release workflow to include the native addon in the release artifact",
+            "Updated smoke-release-app.sh to validate the native addon inside the bundled app"
+          ]
+        },
+        {
+          "heading": "Comprehensive test coverage for tool runtime",
+          "paragraphs": [
+            "36 new test files were added across the agent runtime tool surface, covering timeline appliers, extension request parsing, URI resolution, pending RPC handling, error gating, readiness controllers, runtime state snapshots, todo write/update, and workspace path resolution."
+          ],
+          "bullets": [
+            "Added KajiAgentAssistantTimelineApplierTests, KajiAgentToolTimelineApplierTests, KajiAgentTranscriptRestorerTests",
+            "Added KajiAgentExtensionRequestParserTests, KajiAgentHostURIResolverTests, KajiAgentPendingRPCTests",
+            "Added KajiAgentRuntimeErrorGateTests, KajiAgentRuntimeReadinessControllerTests, KajiAgentRuntimeStateSnapshotTests",
+            "Added KajiAgentTodoWriteUpdateTests, KajiAgentWorkspacePathResolverTests",
+            "Bumped Kaji to 0.2.5"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.4",
+      "date": "June 6, 2026",
+      "title": "Agent runtime readiness improvements and service extraction",
+      "slug": "0.2.4-agent-runtime-readiness-and-service-extraction",
+      "sections": [
+        {
+          "heading": "Agent runtime readiness gated properly",
+          "paragraphs": [
+            "KajiAgentReadiness was added as a first-class model with ready, notReady, and error states. The runtime locator was significantly reworked with a dedicated cache layer (KajiAgentRuntimeLocatorCache) to avoid repeated filesystem scans. Bun version detection was extracted into its own testable service."
+          ],
+          "bullets": [
+            "Added KajiAgentReadiness model with explicit state tracking",
+            "Added KajiAgentRuntimeLocatorCache to cache runtime location between checks",
+            "Extracted KajiAgentBunVersion service with dedicated tests",
+            "Added tests for AIProviderExecutableLocator, KajiAgentBunVersion, and KajiAgentRuntimeLocator",
+            "Added PmsetBatteryLidCloseSleepManager and SleepPreventionBatteryLidCloseController tests"
+          ]
+        },
+        {
+          "heading": "Service extraction from the monolithic store",
+          "paragraphs": [
+            "Agent service helpers were extracted out of the monolithic store into focused services: AgentComposerCompletionProvider for completion handling, KajiAgentTextExtractor for text extraction, and expanded KajiAgentHostToolRegistry with extraction helpers. The agent control panel, home view, message row, sidebar history, task tools, and todo panel were refactored to use these extracted state objects."
+          ],
+          "bullets": [
+            "Extracted AgentComposerCompletionProvider for completion handling",
+            "Extracted KajiAgentTextExtractor for text extraction from agent responses",
+            "Expanded KajiAgentHostToolRegistry with tool extraction helpers",
+            "Added tool output preview and agent control panel helpers",
+            "Refactored KajiAgentHome, KajiAgentMessageRow, KajiAgentSidebarHistorySection, KajiAgentTaskToolView, and KajiAgentTodoPanel"
+          ]
+        },
+        {
+          "heading": "Release and notification polish",
+          "paragraphs": [
+            "Notification destination rows were polished with spinner support during test sends and clearer success/failure feedback. The release pipeline was updated with build-release.sh and smoke-release-app.sh improvements for the new agent runtime build step."
+          ],
+          "bullets": [
+            "Updated notification destination and route rows with spinner during test sends",
+            "Added presence effect to notification badges",
+            "Refined badge feedback styles and segment border display",
+            "Updated build-release.sh and smoke-release-app.sh for runtime validation",
+            "Bumped Kaji to 0.2.4"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.3",
+      "date": "June 5, 2026",
+      "title": "Main-thread process safety and agent runtime responsiveness",
+      "slug": "0.2.3-main-thread-process-safety-and-agent-responsiveness",
+      "sections": [
+        {
+          "heading": "Process.WaitUntilExit timeouts prevent UI hangs",
+          "paragraphs": [
+            "This release addresses a class of main-thread blocking issues where Process.waitUntilExit() calls across the codebase could hang the UI indefinitely. Every Process.waitUntilExit() call now has a timeout, and blocking process operations are offloaded from the main thread using DispatchQueue.global().sync."
+          ],
+          "bullets": [
+            "Added timeoutSeconds to every Process.waitUntilExit() call across 14 files",
+            "Patched AIProviderExecutableLocator, AIProviderInstaller, AIUsageTokenReader, AdminPowerCommandRunning",
+            "Patched AgentEditProcessRunner, AgentVerificationRunner, CodingAgentCommandRunner, MCPRuntimeCommandRunner",
+            "Patched OpenCodeAgentHistory, CodingAgentProcessPatternKiller, FileTreeService, GitProcessRunner, GitWorktreeService",
+            "Offloaded blocking Process work from main thread in 8 services using DispatchQueue.global().sync"
+          ]
+        },
+        {
+          "heading": "Agent runtime availability improved",
+          "paragraphs": [
+            "The KajiAgentRuntimeLocator and KajiAgentStore were hardened to handle runtime unavailability more gracefully, preventing the agent panel from hanging when the runtime process can't be reached."
+          ],
+          "bullets": [
+            "Improved graceful degradation when Kaji Agent Runtime is unavailable",
+            "Prevented agent panel hangs on missing runtime",
+            "Bumped Kaji to 0.2.3"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.2",
+      "date": "June 4, 2026",
+      "title": "Appearance modes, glass surface support, and agent runtime infrastructure",
+      "slug": "0.2.2-appearance-modes-glass-surfaces-and-agent-runtime",
+      "sections": [
+        {
+          "heading": "Three visual modes: Solid, Translucent, and Glass",
+          "paragraphs": [
+            "The app window background system was rebuilt around three visual modes. Solid mode preserves the traditional opaque look. Translucent mode makes windows and surfaces semi-transparent. Glass mode uses macOS 26's Liquid Glass APIs with Ghostty background-blur support for a modern frosted-glass effect when available, with graceful fallback to Translucent on older systems."
+          ],
+          "bullets": [
+            "Added AppearanceMode enum (Solid, Translucent, Glass) with capability gating for macOS 26",
+            "Added AppearanceModeResolver that handles accessibility reduce-transparency overrides",
+            "Added KajiAppearanceContext environment value threaded throughout the view hierarchy",
+            "Added KajiControlSurface and TranslucentSurface wrappers for glass-aware component backgrounds",
+            "Applied glass surfaces to browser toolbar, sidebar, inputs, selects, switches, segmented pickers, buttons, and icon toggles",
+            "Added Ghostty glass terminal settings: background-opacity, background-blur, background-opacity-cells",
+            "Added TerminalGlassBlurMode with Regular Glass and Clear Glass options"
+          ]
+        },
+        {
+          "heading": "Kaji Agent Runtime build pipeline established",
+          "paragraphs": [
+            "A dedicated build script (build-kaji-agent-runtime.sh) bundles the Kaji Agent Runtime TypeScript source into a single .mjs file using Bun, which is then embedded into the Kaji app resources. The release pipeline invokes this step before the Swift build."
+          ],
+          "bullets": [
+            "Added build-kaji-agent-runtime.sh for bundling the agent runtime with Bun",
+            "Integrated agent runtime build into build-release.sh",
+            "Added gitignore exclusion for the bundled kaji-agent-runtime.mjs artifact",
+            "Added Bun installation step in the release workflow"
+          ]
+        },
+        {
+          "heading": "FFF host search tools and permission modes for agents",
+          "paragraphs": [
+            "Agents can now invoke FFF-backed file and text search tools through the Kaji host bridge, enabling fast indexed search without traversing the filesystem manually. Agent permission modes and zlob-backed glob matching were added for pattern-based file authorization."
+          ],
+          "bullets": [
+            "Added FFF host search tools for agent file and text search",
+            "Added agent permission mode tracking for operation authorization",
+            "Added zlob-backed glob matching for pattern-based agent file access"
+          ]
+        },
+        {
+          "heading": "Native diff parser replaces SwiftyDiff adapter",
+          "paragraphs": [
+            "The SwiftyDiff-backed parser was replaced with a fast native patch parser that tracks hunk line numbers, additions, deletions, and inline change segments. Diff views now render rows directly with cached attributed lines, and large diffs are rendered in chunks to avoid performance issues."
+          ],
+          "bullets": [
+            "Added a native fast diff parser replacing SwiftyDiff adapter",
+            "Added DiffRenderPlan with chunked unified and split view support",
+            "Added row indexing, line metrics, and split row pairing",
+            "Improved large diff performance with cached attributed lines and backgrounds",
+            "Added tests for render planning, inline diff segments, and split pairing"
+          ]
+        },
+        {
+          "heading": "CI/CD infrastructure overhaul",
+          "paragraphs": [
+            "The release pipeline was split into macOS 15 (deps build) and macOS 26 (Swift build) stages. Zig 0.16.0 auto-download was added for zlob builds, and CEF helper executable bits are restored after artifact download. SwiftUIIntrospect was added as a dependency for SwiftUI window introspection."
+          ],
+          "bullets": [
+            "Split release workflow into macos-15 deps and macos-26 Swift build jobs",
+            "Added Zig 0.16.x auto-download in build-zlob.sh when missing",
+            "Fixed CEF helper and zlob executable bits after artifact download",
+            "Fixed ghostty.h inclusion in native deps artifact",
+            "Added SwiftUIIntrospect dependency (v26.0.1)",
+            "Bumped Kaji to 0.2.2"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.1",
+      "date": "May 30, 2026",
+      "title": "Agent run persistence overhaul",
+      "slug": "0.2.1-agent-run-persistence-overhaul",
+      "sections": [
+        {
+          "heading": "Chunked agent run persistence prevents bloat",
+          "paragraphs": [
+            "The old single-file agent-runs.json approach could balloon into massive save payloads as changed-file lists grew. The persistence layer was rebuilt with a structured directory layout, chunked file storage, and a debounced actor-based writer. Legacy files are automatically migrated and backed up."
+          ],
+          "bullets": [
+            "Replaced monolithic agent-runs.json with structured AgentRuns/ directory layout",
+            "Added index.json holding run metadata with compact changed-file previews (first 20)",
+            "Changed files stored in 200-file chunks under ChangedFiles/<run-id>/",
+            "Legacy agent-runs.json files are automatically migrated and timestamp-backupd",
+            "Added AgentRunPersistenceWriter actor with 450ms debounced writes"
+          ]
+        },
+        {
+          "heading": "Changed file snapshot policy filters noise",
+          "paragraphs": [
+            "A new filter caps stored changed files at 500 and excludes paths matching known generated or dependency directories (.git, .build, .next, .swiftpm, DerivedData, build, dist, node_modules), preventing agent run data from being overwhelmed by build artifacts."
+          ],
+          "bullets": [
+            "Added AgentChangedFilesSnapshotPolicy with configurable ignored path components and max count",
+            "Filters out .git, .build, .next, .swiftpm, DerivedData, build, dist, node_modules paths",
+            "Caps stored changed files at 500 per run",
+            "App lifecycle flush ensures no data loss via AgentRunStore.flushPersistence() on terminate",
+            "Bumped Kaji to 0.2.1"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "date": "May 30, 2026",
+      "title": "Motion primitives, animated transitions, and ps-based process snapshots",
+      "slug": "0.2.0-motion-primitives-ps-based-snapshots-and-animated-transitions",
+      "sections": [
+        {
+          "heading": "Coordinated motion system across the entire UI",
+          "paragraphs": [
+            "A Pow-backed motion system was introduced with press, hover, selection, success, attention, and invalid change effects. New view modifiers (kajiPressEffect, kajiHoverEffect, kajiChangeFeedback) were applied across side panel toggles, overlays, editor mode switches, settings, sidebar, VCS, browser, workspace, and shared controls. All transitions respect reduced-motion preferences."
+          ],
+          "bullets": [
+            "Added KajiMotion with shared animation constants and Pow-backed change effects",
+            "Added kajiPressEffect, kajiHoverEffect, and kajiChangeFeedback view modifiers",
+            "Applied motion effects to side panels, overlays, editor modes, settings, sidebar, VCS, browser, and workspace",
+            "All side panel toggles (VCS, file tree, browser, search, agent instructions, outline) now animate with blur + move transitions",
+            "Added microinteraction research documentation"
+          ]
+        },
+        {
+          "heading": "ps-based process snapshots with stricter classification",
+          "paragraphs": [
+            "The agent process monitor now uses a ps-based snapshotter (CodingAgentPSProcessSnapshotter) that parses ps -axo output, enriched with thread count and memory data from the native kernel snapshotter. Process classification was tightened so generic runtimes (node, bun, Python, shell) require strong command markers to be classified as coding agents."
+          ],
+          "bullets": [
+            "Added CodingAgentPSProcessSnapshotter using ps -axo output",
+            "Native kernel snapshotter now enriches ps results instead of being primary source",
+            "Added strong marker requirement (/, ., or @) for generic runtime classification",
+            "Added CodingAgentPSProcessSnapshotterTests and CodingAgentProcessClassifierTests",
+            "Changed process panel icon from sparkles to cpu"
+          ]
+        },
+        {
+          "heading": "Visual polish across the app",
+          "paragraphs": [
+            "The main window panel identity system was refreshed so side panel changes animate consistently. Editor markdown view modes (code/preview/split) and the outline panel now use animated transitions. Search replace fields, disclosures, and notification controls received motion polish."
+          ],
+          "bullets": [
+            "Added SidePanelIdentity enum for consistent animated panel transitions",
+            "Editor markdown view mode toggles animate with contentSwitchTransition",
+            "Editor outline panel animates slide-in/out; rows have hover highlight",
+            "Search replace field slides in with disclosure transition",
+            "Notifications show success/failure feedback; test sends show spinner",
+            "Toast notifications on worktree creation and language pack installs",
+            "LogoCropper shows inline error messages instead of silent cancellation",
+            "Bumped Kaji to 0.2.0"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.91",
+      "date": "May 29, 2026",
+      "title": "Native process snapshots for coding agents",
+      "slug": "0.1.91-native-process-snapshots-for-coding-agents",
+      "sections": [
+        {
+          "heading": "Coding agent processes read directly from the kernel",
+          "paragraphs": [
+            "Kaji's agent process monitor moved from the old arguments-by-PID scan to a native proc_pidinfo-based snapshotter that captures executable paths, thread counts, memory bytes, and process state directly from the Darwin kernel, without spawning subprocesses on the main thread."
+          ],
+          "bullets": [
+            "Added CodingAgentNativeProcessSnapshotter using Darwin.proc_pidinfo for memory, thread count, and executable path",
+            "Added CodingAgentProcessArgumentSnapshotter for per-PID args via proc_args",
+            "Added CodingAgentProcessPatternKiller for pkill-based agent process termination with pattern matching",
+            "Replaced the old CodingAgentProcessParser with structured process info and pattern-based killing",
+            "Replaced sparkles icon with cpu icon across process monitor UI",
+            "Added tests for argument snapshotter, pattern killer, and classifier behavior",
+            "Bumped Kaji to 0.1.91"
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.1.9",
       "date": "May 29, 2026",
       "title": "Chrome DevTools browser control, faster search, and process monitors",

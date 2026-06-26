@@ -1,6 +1,327 @@
 {
   "entries": [
     {
+      "version": "0.3.3",
+      "date": "June 26, 2026",
+      "title": "Multi-account GitHub PRs and async agent instructions",
+      "slug": "0.3.3-multi-account-github-prs-and-async-agent-instructions",
+      "sections": [
+        {
+          "heading": "Create PR now understands multiple GitHub accounts",
+          "paragraphs": [
+            "The Create Pull Request flow was rebuilt around account-aware GitHub routing. Kaji can parse GitHub remotes, discover the right account context, and show the selected account directly inside the PR modal instead of assuming every repo belongs to the same identity."
+          ],
+          "bullets": [
+            "Added GitHubAccount, GitHubAccountParser, GitHubAccountService, and GitHubRemoteURLParser",
+            "Added CreatePRGitHubAccountField so the PR modal shows the account being used",
+            "Refactored CreatePRModal into context, presenter, and chrome components",
+            "Added PullRequestBranchNameSlug for cleaner generated branch names",
+            "Added tests for GitHub account parsing and PR palette behavior"
+          ]
+        },
+        {
+          "heading": "Agent instructions load without blocking the UI",
+          "paragraphs": [
+            "Agent instruction discovery is now asynchronous, error-aware, and stricter about which directories it scans. Opening the instructions panel no longer has to stall while the app walks the workspace."
+          ],
+          "bullets": [
+            "Added AgentInstructionDocument, AgentInstructionDiscovery, and AgentInstructionPanelState",
+            "Added AgentInstructionsPanel loading and error states",
+            "Added directory filtering so generated and dependency folders are ignored",
+            "Added Ask palette entries for opening agent instructions",
+            "Added AgentInstructionDiscoveryTests"
+          ]
+        },
+        {
+          "heading": "Shared modal components got cleaner",
+          "paragraphs": [
+            "The command modal and form layout pieces were extracted into reusable components, which keeps future modal flows from piling more state and layout code into the main window."
+          ],
+          "bullets": [
+            "Added KajiCommandModalShell and KajiFormSection",
+            "Moved modal coordination through KajiModalCoordinator and KajiModalRoute",
+            "Simplified MainWindow modal presentation paths",
+            "Bumped Kaji to 0.3.3"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.3.2",
+      "date": "June 26, 2026",
+      "title": "Agent activity bridge and cleaner VCS rows",
+      "slug": "0.3.2-agent-activity-bridge-and-cleaner-vcs-rows",
+      "sections": [
+        {
+          "heading": "Agent activity has a proper bridge into the app",
+          "paragraphs": [
+            "Kaji now has a dedicated bridge for turning agent runs, provider activity, and notification context into app-level activity state. This makes the sidebar and navigation paths less dependent on scattered provider-specific assumptions."
+          ],
+          "bullets": [
+            "Added KajiAgentActivityBridge for mapping agent state into app activity",
+            "Added KajiAgentActivityContextResolver and KajiAgentRunSummary",
+            "Added AgentProviderCatalog as the central provider source",
+            "Updated notification normalization and navigation for agent activity routes",
+            "Added KajiAgentActivityBridgeTests and notification routing tests"
+          ]
+        },
+        {
+          "heading": "Changed-file rows are easier to read and reuse",
+          "paragraphs": [
+            "The VCS tab now separates changed-file presentation from the larger tab view. Rows understand their presentation mode directly, making file lists cleaner in regular VCS views and diff-focused contexts."
+          ],
+          "bullets": [
+            "Added VCSPresentationMode",
+            "Extracted VCSChangedFileRow from VCSTabView",
+            "Updated diff viewer tab creation and changed-file routing",
+            "Added AppState diff viewer tests",
+            "Bumped Kaji to 0.3.2"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.3.1",
+      "date": "June 25, 2026",
+      "title": "Native WebKit browser control and packaged MCP tools",
+      "slug": "0.3.1-native-webkit-browser-control-and-packaged-mcp-tools",
+      "sections": [
+        {
+          "heading": "Browser control moved from CEF to native WebKit",
+          "paragraphs": [
+            "Kaji's browser surface was migrated away from the embedded CEF/Puppeteer stack to a native WebKit-based view. The app keeps the in-app browser workflow, but drops a large amount of Chromium runtime packaging complexity."
+          ],
+          "bullets": [
+            "Migrated browser panes and controller actions to native WebKit infrastructure",
+            "Removed CEF bridge sources and CEF runtime install validation scripts",
+            "Updated browser screenshot, read-page, dialog, navigation, and device-profile paths",
+            "Kept browser automation anchored to Kaji-owned browser sessions",
+            "Updated browser architecture documentation"
+          ]
+        },
+        {
+          "heading": "Browser MCP became a packaged tool surface",
+          "paragraphs": [
+            "The browser MCP infrastructure was refactored into a broader tool catalog with a packaged install path. Browser actions are now described through dedicated command, action, target, and resource locator layers."
+          ],
+          "bullets": [
+            "Added KajiBrowserControlBroker, command registry, action aliases, and target arguments",
+            "Added capture, diagnostic, file, interaction, and navigation action modules",
+            "Added KajiBrowserMCPResourceLocator and KajiBrowserMCPInstallService",
+            "Updated coding-agent browser environment wiring",
+            "Added tests for browser MCP installation"
+          ]
+        },
+        {
+          "heading": "Release packaging got smaller and safer",
+          "paragraphs": [
+            "The release scripts were updated for the WebKit migration, and the shipped app rpath was fixed so packaged framework loading behaves correctly in the release artifact."
+          ],
+          "bullets": [
+            "Removed CEF runtime installation from the release path",
+            "Updated build-release.sh and smoke-release-app.sh",
+            "Added SwiftRunBundleLauncher updates for packaged app launching",
+            "Fixed the release app framework rpath",
+            "Bumped Kaji to 0.3.1"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.3.0",
+      "date": "June 24, 2026",
+      "title": "Monaco editor bundle and external IDE opening",
+      "slug": "0.3.0-monaco-editor-bundle-and-external-ide-opening",
+      "sections": [
+        {
+          "heading": "The editor moved to a bundled Monaco runtime",
+          "paragraphs": [
+            "Kaji's native editor infrastructure was replaced with a bundled Monaco runtime built through Vite. This gives the app a more capable code-editing foundation while keeping the runtime packaged inside Kaji resources."
+          ],
+          "bullets": [
+            "Migrated MonacoEditor to a Vite-built runtime bundle",
+            "Added bundled Monaco assets and worker files under Kaji resources",
+            "Removed the older native editor language infrastructure",
+            "Added Monaco asset server, first paint, mapper, model input, and reveal policy tests",
+            "Added build-monaco-runtime.sh and integrated it with setup/release scripts"
+          ]
+        },
+        {
+          "heading": "Open files in your preferred external IDE",
+          "paragraphs": [
+            "Kaji now has first-class external IDE selection and opening services, so files can move from Kaji into the editor you actually want to use without hardcoded one-off paths."
+          ],
+          "bullets": [
+            "Added ExternalIDE model support",
+            "Added IDE selection and file opening services",
+            "Updated app state and tab routing for external editor handoff",
+            "Added tests around Monaco and external editor behavior",
+            "Bumped Kaji to 0.3.0"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.9",
+      "date": "June 15, 2026",
+      "title": "Azure custom provider key validation",
+      "slug": "0.2.9-azure-custom-provider-key-validation",
+      "sections": [
+        {
+          "heading": "Custom providers now validate their keys before you trust them",
+          "paragraphs": [
+            "The Kaji Agent custom provider flow now validates Azure-style custom provider keys and shows the validation state in settings. Bad provider setup should be caught earlier, with clearer feedback before an agent run fails later."
+          ],
+          "bullets": [
+            "Added KajiAgentCustomProviderValidation model support",
+            "Added KajiAgentCustomProviderValidationStatusView",
+            "Updated custom provider editor, row, and settings section with validation state",
+            "Updated KajiAgentStore to request and surface provider validation",
+            "Added Swift tests for custom provider validation"
+          ]
+        },
+        {
+          "heading": "Runtime-side provider validation was split into focused modules",
+          "paragraphs": [
+            "The TypeScript runtime side now separates provider config, secrets, types, and validation logic, making the custom-provider path easier to test and extend."
+          ],
+          "bullets": [
+            "Added custom-provider-validation, custom-provider-secrets, and custom-provider-types modules",
+            "Updated runtime RPC types and client/server handling for validation requests",
+            "Added runtime tests for custom provider validation",
+            "Bumped Kaji to 0.2.9"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.8",
+      "date": "June 11, 2026",
+      "title": "Virtualized agent timeline, markdown transcripts, and custom providers",
+      "slug": "0.2.8-virtualized-agent-timeline-markdown-transcripts-and-custom-providers",
+      "sections": [
+        {
+          "heading": "Agent timelines can handle long conversations better",
+          "paragraphs": [
+            "The agent transcript view was rebuilt around virtualized rows, height indexes, visible range policy, and row stores. Long-running agent sessions should scroll more smoothly without forcing every transcript row to stay mounted."
+          ],
+          "bullets": [
+            "Added KajiAgentTimelineRow, row store, height estimator, height index, and visible range policy",
+            "Added KajiAgentVirtualTimelineView and row height reading",
+            "Added timeline flattener and row spacing policy",
+            "Improved scroll lock behavior for active agent output",
+            "Added extensive tests for timeline virtualization and scrolling"
+          ]
+        },
+        {
+          "heading": "Transcripts render richer markdown and collapsible tool output",
+          "paragraphs": [
+            "Agent output now has a richer markdown parsing and rendering pipeline, including code blocks, long text handling, streaming markdown, thinking rows, and accordion-style disclosure rows for dense output."
+          ],
+          "bullets": [
+            "Added KajiAgentMarkdownModels and KajiAgentMarkdownParser",
+            "Added KajiAccordionItem, KajiAgentCodeBlockView, KajiAgentLongTextView, and streaming markdown views",
+            "Added inline semantic parsing for transcript text",
+            "Added tool call rows, tool output views, and grouped tool headers",
+            "Added markdown parser and inline parser tests"
+          ]
+        },
+        {
+          "heading": "Kaji Agent custom providers arrived",
+          "paragraphs": [
+            "Custom provider configuration was added to both the native app and the agent runtime, including Azure OpenAI deployment discovery and normalized provider config handling."
+          ],
+          "bullets": [
+            "Added KajiAgentCustomProvider models, auto-match behavior, enums, and model configuration",
+            "Added custom provider settings editor, model editor, rows, and section UI",
+            "Added runtime custom provider config normalization and model registry support",
+            "Added Azure OpenAI deployment discovery tests",
+            "Bumped Kaji to 0.2.8"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.7",
+      "date": "June 8, 2026",
+      "title": "User command shortcuts, parent-agent sessions, and browser cleanup",
+      "slug": "0.2.7-user-command-shortcuts-parent-agent-sessions-and-browser-cleanup",
+      "sections": [
+        {
+          "heading": "User command shortcuts landed in the command surface",
+          "paragraphs": [
+            "Kaji now supports user-defined command shortcuts that can be parsed, validated, previewed, resolved, and launched from the Ask palette. The shortcut reference UI also gained a dedicated section so custom commands are easier to discover."
+          ],
+          "bullets": [
+            "Added UserCommandShortcut models and resolved command templates",
+            "Added parser, resolver, validator, preview builder, argument binder, and store services",
+            "Added user command shortcut settings rows and form UI",
+            "Added Ask palette integration for user command shortcuts",
+            "Added parser, resolver, store, template, and palette tests"
+          ]
+        },
+        {
+          "heading": "Parent Agent sessions keep their tab scope",
+          "paragraphs": [
+            "Parent Agent state now preserves tab scope and session identity more carefully across workspace snapshots. Agent run details are also persisted in the V2 snapshot path."
+          ],
+          "bullets": [
+            "Updated AppState and workspace snapshot handling for Parent Agent tab scope",
+            "Persisted agent run details in V2 snapshots",
+            "Updated OpenCode plugin runtime handling",
+            "Added AppStateParentAgentTests and AgentRunPersistenceV2Tests"
+          ]
+        },
+        {
+          "heading": "Browser lifecycle cleanup got sturdier",
+          "paragraphs": [
+            "The CEF browser runtime received lifecycle and cleanup hardening so browser sessions recover and discard inactive work more predictably."
+          ],
+          "bullets": [
+            "Improved KajiBrowserRuntimeCoordinator behavior",
+            "Added KajiCEFProfileRecovery tests",
+            "Added browser inactive discard policy coverage",
+            "Updated browser controller registry and pane cleanup paths",
+            "Bumped Kaji to 0.2.7"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.6",
+      "date": "June 8, 2026",
+      "title": "Floating agent task popover and smoother timeline updates",
+      "slug": "0.2.6-floating-agent-task-popover-and-smoother-timeline-updates",
+      "sections": [
+        {
+          "heading": "Agent tasks can float above the conversation",
+          "paragraphs": [
+            "A new floating task button and popover make active agent tasks easier to reach while you are reading or scrolling through a long transcript. The task UI is backed by explicit state and tests instead of being hidden inside the main agent view."
+          ],
+          "bullets": [
+            "Added KajiAgentFloatingTaskState",
+            "Added KajiAgentFloatingTaskButton",
+            "Updated KajiAgentHome, message rows, turns, and tool groups for the floating task flow",
+            "Added KajiAgentFloatingTaskStateTests",
+            "Documented the floating task and scroll-lock plan"
+          ]
+        },
+        {
+          "heading": "Timeline updates are coalesced before hitting the UI",
+          "paragraphs": [
+            "Agent transcript updates now pass through a coalescer, reducing noisy UI churn during streaming output and tool updates. Scroll lock handling was also hardened for stop-loader and transcript glitches."
+          ],
+          "bullets": [
+            "Added KajiAgentTimelineUpdateCoalescer",
+            "Updated KajiAgentScrollCoordinator and KajiAgentScrollLockPolicy",
+            "Improved tool timeline application behavior",
+            "Added tests for update coalescing, scroll lock policy, abort reconciliation, and transcript virtualization",
+            "Bumped Kaji to 0.2.6"
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.2.5",
       "date": "June 7, 2026",
       "title": "Expanded agent runtime tools, native host bridge, and native addon packaging",
@@ -706,7 +1027,7 @@
           "heading": "Browser inside the command center",
           "paragraphs": [
             "Droid gets an embedded Chromium browser side panel, plus the first serious round of browser-agent integration work.",
-            "This is the release where the browser stops being \u201copen a separate thing somewhere else\u201d and starts becoming a workspace surface agents can eventually use."
+            "This is the release where the browser stops being “open a separate thing somewhere else” and starts becoming a workspace surface agents can eventually use."
           ],
           "bullets": [
             "Added embedded Chromium browser side panel",
@@ -779,7 +1100,7 @@
           "heading": "Release resources in the right place",
           "paragraphs": [
             "This hotfix fixes the packaged resource bundle location so release builds can find the resources they need after installation.",
-            "Tiny diff, big \u201cwhy is the app acting different outside Xcode?\u201d energy."
+            "Tiny diff, big “why is the app acting different outside Xcode?” energy."
           ],
           "bullets": [
             "Fixed packaged resource bundle lookup/location",
@@ -798,7 +1119,7 @@
           "heading": "Release cache hardening",
           "paragraphs": [
             "The GhosttyKit cache path gets more defensive in this release, including provenance verification and overwrite behavior during release builds.",
-            "In other words: fewer mystery terminal engines, more \u201cyes, that is the artifact we meant to ship.\u201d"
+            "In other words: fewer mystery terminal engines, more “yes, that is the artifact we meant to ship.”"
           ],
           "bullets": [
             "Verified GhosttyKit cache provenance",
@@ -918,7 +1239,7 @@
         {
           "heading": "Cleaner Pi signals",
           "paragraphs": [
-            "Pi permission requests and completion events are now separated so Droid can treat \u201cplease approve this\u201d differently from \u201cthe task is done.\u201d",
+            "Pi permission requests and completion events are now separated so Droid can treat “please approve this” differently from “the task is done.”",
             "Agents need nuance too. Otherwise every notification is just a tiny panic button."
           ],
           "bullets": [

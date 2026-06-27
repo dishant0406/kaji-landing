@@ -14,7 +14,7 @@ export function homeSchema() {
       operatingSystem: "macOS",
       softwareVersion: changelogEntries[0].version,
       url: absoluteUrl("/"),
-      downloadUrl: site.downloadHref,
+      downloadUrl: absoluteUrl(site.downloadHref),
       image: absoluteUrl(seo.ogImage),
       screenshot: absoluteUrl("/kaji-hero-screenshot.png"),
       description: seo.description,
